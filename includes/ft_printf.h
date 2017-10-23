@@ -1,21 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/06 12:03:22 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/20 17:55:10 by opodolia         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <stdint.h>
 # include <wchar.h>
+# include <stdbool.h>
 # include "../libft/includes/libft.h"
 
 /*
@@ -84,41 +73,45 @@ typedef enum
 
 typedef struct	s_flags
 {
-	int			left;
-	int			plus;
-	int			space;
 	t_hash		hash;
 	int			zero;
-	int			unread;
-	int			quote_mark;
+	int			minus;
+	int			plus;
+	int			space;
 }				t_flags;
 
-typedef struct	s_mods
+typedef struct	s_params
 {
 	t_flags		flags;
 	int			width;
 	int			precision;
 	t_length	length;
-	char		qualifier;
+	char		specifier;
 	int			base;
 	int			sigfig;
 	int			exp_base;
 	char		exp_char;
 	int			exp_len;
-}				t_mods;
+}				t_params;
 
 int				ft_printf(const char *format, ...);
+int				parse_params(int indx, const char *format, t_params *params,
+				va_list ap);
+int				parse_specifiers(va_list ap, t_params *params);
+void			parse_numb_specifiers(t_params *params, char specifier,
+				intmax_t numb);
+
+
 int				ft_flags(const char *format, t_mods *mods);
 int				ft_width(const char *format, t_mods *mods, va_list ap);
 int				ft_precision(const char *format, t_mods *mods, va_list ap);
 int				ft_length(const char *format, t_mods *mods);
 int				ft_qualifier(char c, t_mods *mods);
 
-int				ft_no_qual(t_mods *mods);
-int				ft_numb(va_list ap, t_mods *mods);
-int				ft_char(va_list ap, t_mods *mods);
-int				ft_str(va_list ap, t_mods *mods);
-int				ft_float(va_list ap, t_mods *mods);
+int				no_type(t_mods *mods);
+int				number(va_list ap, t_mods *mods);
+int				symbol(va_list ap, t_mods *mods);
+int				string(va_list ap, t_mods *mods);
 
 int				ft_size(char *str, t_mods *mods);
 int				ft_is_mb(char *s);
