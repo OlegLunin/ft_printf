@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 17:31:25 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/01 17:50:31 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/08 15:39:00 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/08 15:39:02 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	size_t			i;
+	size_t index;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	while (i++ < n && (*str1 || *str2))
+	index = 0;
+	while (index < n && (*(s2 + index) || *(s1 + index)))
 	{
-		if (*str1 > *str2 || *str1 < *str2)
-			return (*str1 - *str2);
-		str1++;
-		str2++;
+		if (index < n && *((unsigned char*)s2 + index) ==
+				*((unsigned char *)s1 + index))
+			index++;
+		else
+			return (*((unsigned char *)s1 + index) -
+					*((unsigned char *)s2 + index));
 	}
 	return (0);
 }

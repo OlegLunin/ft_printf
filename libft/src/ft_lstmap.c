@@ -3,49 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 16:26:14 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/06 17:57:42 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/06 14:28:27 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 14:28:29 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_clean_res(t_list *lst)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*tmp;
+	t_list	*rt;
+	t_list	*dst_elem;
 
+	if (!lst)
+		return (0);
+	if (!(rt = ft_lstnew(lst->content, lst->content_size)))
+		return (0);
+	rt = f(rt);
+	lst = lst->next;
+	dst_elem = rt;
 	while (lst)
 	{
-		tmp = lst->next;
-		ft_memdel((void **)lst);
-		lst = tmp;
+		if (!(dst_elem->next =
+					ft_lstnew(lst->content, lst->content_size)))
+			return (0);
+		dst_elem->next = f(dst_elem->next);
+		dst_elem = dst_elem->next;
+		lst = lst->next;
 	}
-}
-
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
-{
-	t_list	*list;
-	t_list	*res;
-
-	res = 0;
-	if (lst)
-	{
-		list = (*f)(ft_lstnew(lst->content, lst->content_size));
-		res = list;
-		while (lst->next)
-		{
-			lst = lst->next;
-			list->next = (*f)(ft_lstnew(lst->content, lst->content_size));
-			if (list->next)
-				list = list->next;
-			else
-			{
-				ft_clean_res(res);
-				return (0);
-			}
-		}
-	}
-	return (res);
+	return (rt);
 }

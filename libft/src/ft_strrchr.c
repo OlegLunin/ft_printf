@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 14:56:31 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/04 19:16:45 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/06 16:54:00 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 16:54:02 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *str, int c)
 {
-	char *ret;
+	char			*res;
+	unsigned int	index;
 
-	ret = 0;
-	if (*s == (char)c)
-		ret = (char *)s;
-	while (*s++)
-		if (*s == (char)c)
-			ret = (char *)s;
-	return (ret);
+	index = 0;
+	res = NULL;
+	if (*str == (char)c)
+		res = (char *)str;
+	while (*str++)
+	{
+		if (*str == (char)c)
+			res = (char *)str;
+	}
+	return (res);
 }

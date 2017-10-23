@@ -22,7 +22,7 @@ char	*push_to_itoa(intmax_t numb, t_params *params, bool u_numb)
 	return (str);
 }
 
-char	*convert_usigned(va_list ap, t_params *params, char specifier)
+char	*convert_unsigned(va_list ap, t_params *params, char specifier)
 {
 	uintmax_t	numb;
 
@@ -70,7 +70,7 @@ char	*convert_signed(va_list ap, t_params *params, char specifier)
 	intmax_t	numb;
 
 	numb = va_arg(ap, intmax_t);
-	ft_parse_nmods(params, specifier, numb);
+	parse_numb_specifiers(params, specifier, numb);
 	if (params->length == hh)
 		return (push_to_itoa((char)numb, params, false));
 	else if (params->length == h)
@@ -89,16 +89,16 @@ int		number(va_list ap, t_params *params)
 	char	*str;
 	char	*line;
 
-	specifier = mods->specifier;
+	specifier = params->specifier;
 	if (specifier == 'p' || specifier == 'o' || specifier == 'u'
 		|| specifier == 'x' || specifier == 'X')
 		str = convert_unsigned(ap, params, specifier);
 	else
 		str = convert_signed(ap, params, specifier);
-	size = ft_size(str, params);
-	line = (char *)malloc(sizeof(char) * (size + 1));
-	mods->flags.left ? ft_push_left(params, &line, size, str) :
-		ft_push_right(params, &line, size, str);
+	size = get_size(str, params);
+	line = (char *)ft_memalloc(size + 1);
+	params->flags.minus ? push_left(params, &line, size, str)
+		: push_right(params, &line, size, str);
 	ft_putstr(line);
 	ret = ft_strlen(line);
 	ft_strdel(&str);

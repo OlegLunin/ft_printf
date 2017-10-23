@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstcount.c                                      :+:      :+:    :+:   */
+/*   ft_str_is_uppercase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 19:17:26 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/20 15:19:25 by opodolia         ###   ########.fr       */
+/*   Created: 2016/11/01 10:32:05 by olunin            #+#    #+#             */
+/*   Updated: 2016/11/01 10:32:26 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_lstcount(t_list *list)
+int		ft_str_is_uppercase(char *str)
 {
-	int		i;
-
-	i = 0;
-	while (list)
+	if (*str == '\0')
 	{
-		list = list->next;
-		i++;
+		return (1);
 	}
-	return (i);
+	while (*str)
+	{
+		if (!(*str >= 'A' && *str <= 'Z'))
+			return (0);
+		str++;
+	}
+	return (1);
 }

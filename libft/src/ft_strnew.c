@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 10:36:27 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/10 11:43:06 by opodolia         ###   ########.fr       */
+/*   Created: 2016/11/30 20:04:50 by olunin            #+#    #+#             */
+/*   Updated: 2016/11/30 20:22:08 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strnew(size_t size)
 {
-	return ((char *)ft_memalloc(++size));
+	char *str;
+
+	str = (char *)malloc(size + 1);
+	if (str)
+	{
+		ft_bzero(str, size + 1);
+		return (str);
+	}
+	return (NULL);
 }

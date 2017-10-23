@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 14:26:56 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/13 13:08:27 by opodolia         ###   ########.fr       */
+/*   Created: 2016/10/31 10:51:50 by olunin            #+#    #+#             */
+/*   Updated: 2016/11/29 19:24:58 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+char	*ft_strncpy(char *dest, const char *src, int n)
 {
-	size_t	i;
+	int index;
 
-	i = 0;
-	while (i <= len)
+	index = 0;
+	while (index < n && src[index])
 	{
-		dst[i] = src[i];
-		i++;
+		dest[index] = src[index];
+		index++;
 	}
-	dst[len] = '\0';
-	return (dst);
+	while (index < n)
+		dest[index++] = '\0';
+	return (dest);
 }

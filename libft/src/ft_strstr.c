@@ -3,36 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 15:03:06 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/01 16:37:04 by opodolia         ###   ########.fr       */
+/*   Created: 2016/10/31 13:17:22 by olunin            #+#    #+#             */
+/*   Updated: 2016/11/29 19:25:17 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strstr(const char *big, const char *little)
+char	*ft_strstr(char *str, char *to_find)
 {
-	int i;
-	int j;
+	char *begin;
+	char *pattern;
 
-	i = 0;
-	if (*big == '\0' && *little == '\0')
-		return ((char *)big);
-	while (big[i] != '\0')
+	if (!(*to_find))
+		return (str);
+	while (*str)
 	{
-		j = 0;
-		while (big[i] == little[j] && big[i] != '\0' && little[j] != '\0')
+		begin = str;
+		pattern = to_find;
+		while (*str && *pattern && *str == *pattern)
 		{
-			i++;
-			j++;
+			str++;
+			pattern++;
 		}
-		if (little[j] == '\0')
-			return ((char *)big + i - j);
-		else
-			i -= j;
-		i++;
+		if (!*pattern)
+			return (begin);
+		str = begin + 1;
 	}
 	return (0);
 }

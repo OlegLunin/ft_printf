@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/09 06:25:21 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/09 06:30:53 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/06 17:05:21 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 17:05:52 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strrev(char *s)
+char	*ft_strrev(char *str)
 {
-	char	*str;
-	char	c;
+	int		count;
+	int		char_numb;
+	char	*temp_ptr;
+	char	temp;
 
-	if (!s)
-		return ;
-	str = s;
-	while (*str)
-		str++;
-	str--;
-	while (s < str)
+	count = 0;
+	char_numb = 0;
+	temp_ptr = str;
+	while (*temp_ptr != '\0')
 	{
-		c = *s;
-		*s++ = *str;
-		*str-- = c;
+		char_numb++;
+		temp_ptr++;
 	}
+	while (char_numb > count)
+	{
+		temp = *(str + char_numb - 1);
+		*(str + char_numb - 1) = *(str + count);
+		*(str + count) = temp;
+		count++;
+		char_numb--;
+	}
+	return (str);
 }

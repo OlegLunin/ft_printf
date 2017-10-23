@@ -3,59 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/03 19:37:54 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/14 15:12:02 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/06 17:11:02 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 17:11:05 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_size(intmax_t nb)
+static int	ft_length(int n)
 {
-	size_t	size;
+	int len;
 
-	size = 0;
-	if (nb == 0)
-		return (1);
-	if (nb < 0)
-	{
-		nb = -nb;
-		size++;
-	}
-	while (nb > 0)
-	{
-		size++;
-		nb /= 10;
-	}
-	return (size);
+	len = 0;
+	while (n && ++len)
+		n = n / 10;
+	return (len);
 }
 
-char			*ft_itoa(intmax_t n)
+static int	ft_abs(int n)
 {
-	intmax_t	nb;
-	char		*str;
-	size_t		size;
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
-	nb = n;
-	size = ft_size(nb);
-	if (n == 0)
-		str = ft_strdup("0");
-	else
-		str = ft_strnew(size);
-	if (str == 0)
-		return (0);
-	if (nb < 0)
+char		*ft_itoa(int n)
+{
+	int		i;
+	int		len;
+	char	*str;
+
+	i = 0;
+	len = ft_length(n);
+	str = 0;
+	if (n <= 0)
+		len++;
+	if ((str = (char *)malloc(sizeof(char) * (len + 1))))
 	{
-		str[0] = '-';
-		nb = -nb;
-	}
-	while (nb > 0 && str)
-	{
-		str[size - 1] = '0' + (nb % 10);
-		size--;
-		nb /= 10;
+		str[len] = 0;
+		if (n == 0 && (str[0] = '0'))
+			return (str);
+		if (n < 0)
+			str[0] = '-';
+		while (n && i < len)
+		{
+			str[len - i - 1] = ft_abs(n % 10) + 48;
+			n = n / 10;
+			i++;
+		}
 	}
 	return (str);
 }

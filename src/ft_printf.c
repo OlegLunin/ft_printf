@@ -12,11 +12,6 @@ static void	set_params(t_params *params)
 	params->precision = -1;
 	params->length = none;
 	params->specifier = '\0';
-	params->base = 10;
-	params->sigfig = -1;
-	params->exp_base = 10;
-	params->exp_char = 0;
-	params->exp_len = 2;
 }
 
 int		check_print(const char *format, t_params *params, va_list ap)
@@ -34,7 +29,7 @@ int		check_print(const char *format, t_params *params, va_list ap)
 			write(1, &format[indx], type - &format[indx]);
 			ret += type - &format[indx];
 			set_params(params);
-			index = parse_params(indx + type - &format[indx] + 1,
+			indx = parse_params(indx + type - &format[indx] + 1,
 				format, params, ap);
 			ret += parse_specifiers(ap, params);
 		}

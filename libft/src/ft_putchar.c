@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/03 19:42:50 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/04 17:04:55 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/02 19:37:29 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/03 17:39:34 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <locale.h>
+#include <wchar.h>
 
 void	ft_putchar(char c)
 {

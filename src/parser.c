@@ -34,7 +34,7 @@ int		parse_specifiers(va_list ap, t_params *params)
 		return (symbol(ap, params));
 	else if (specifier == 's')
 		return (string(ap, params));
-	else if (params->conv_spec)
+	else if (params->specifier)
 		return (no_specifier(params));
 	return (0);
 }
@@ -52,7 +52,7 @@ int		reassign_capital_specifier(char specifier, t_params *params)
 		params->length = l;
 		params->flags.hash = yes;
 	}
-	params->specifiers = specifier;
+	params->specifier = specifier;
 	return (1);
 }
 
@@ -61,19 +61,19 @@ int		parse_params(int indx, const char *format, t_params *params,
 {
 	while (format[indx])
 	{
-		if (format[idnx] == '#' || format[indx] == '0' || format[indx] == '-'
+		if (format[indx] == '#' || format[indx] == '0' || format[indx] == '-'
 			|| format[indx] == '+' || format[indx] == ' ')
 			indx += flags(&format[indx], params);
 		else if (format[indx] == '*' || ft_isdigit(format[indx]))
-			indx += width(&format[indx], mods, ap);
+			indx += width(&format[indx], params, ap);
 		else if (format[indx] == '.')
-			indx += precision(&format[indx], mods, ap);
+			indx += precision(&format[indx], params, ap);
 		else if (format[indx] == 'h' || format[indx] == 'l'
 			|| format[indx] == 'j' || format[indx] == 'z')
-			indx += length(&format[indx], mods);
+			indx += length(&format[indx], params);
 		else if (format[indx])
 		{
-			indx += reassign_capital_specifier(format[indx], mods);
+			indx += reassign_capital_specifier(format[indx], params);
 			break ;
 		}
 		else

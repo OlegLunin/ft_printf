@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/04 16:43:00 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/14 15:30:03 by opodolia         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static int	ft_size(uintmax_t val, int base)
+int		ft_size(uintmax_t val, int base)
 {
 	int		size;
 
@@ -27,7 +15,7 @@ static int	ft_size(uintmax_t val, int base)
 	return (size);
 }
 
-char		*ft_uitoa_base(uintmax_t val, int base, char c)
+char	*ft_uitoa_base(uintmax_t val, int base, char c)
 {
 	char	*str;
 	char	*bs;

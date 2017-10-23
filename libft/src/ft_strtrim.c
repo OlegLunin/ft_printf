@@ -3,31 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 15:38:23 by opodolia          #+#    #+#             */
-/*   Updated: 2016/12/10 12:55:51 by opodolia         ###   ########.fr       */
+/*   Created: 2016/12/01 14:52:13 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 16:43:47 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+static char	*retemp(void)
 {
-	size_t	i;
-	size_t	j;
+	char	*temp;
 
-	if (s)
+	temp = (char *)malloc(1);
+	*temp = '\0';
+	return (temp);
+}
+
+static char	*retemp1(char *temp[2], size_t end_start[2], char const *s)
+{
+	temp[1] = (char *)s;
+	while (*temp[1])
+		temp[1]++;
+	while (--temp[1] && (*temp[1] == ' ' ||
+				*temp[1] == '\t' || *temp[1] == '\n'))
+		end_start[0]++;
+	if (end_start[0] == ft_strlen((char *)s) && ((end_start[1] = 0) == 0))
+		return (retemp());
+	s--;
+	while ((++s && (*s == ' ' || *s == '\t' || *s == '\n') && *(s + 1)))
+		(end_start[1])++;
+	if ((temp[0] = (char *)malloc(ft_strlen((char *)s) - end_start[0] + 1)))
 	{
-		i = 0;
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-			i++;
-		if (ft_strlen(s) == i)
-			return (ft_strnew(0));
-		j = ft_strlen(s) - 1;
-		while (s[j] == ' ' || s[j] == '\n' || s[j] == '\t')
-			j--;
-		return (ft_strsub(s, i, j - i + 1));
+		temp[1] = temp[0];
+		while (*(s + end_start[0]))
+			if ((*(temp[0]) = *s) && s++ && (temp[0])++)
+				;
+		*temp[0] = '\0';
+		return (temp[1]);
 	}
-	return (0);
+	return (NULL);
+}
+
+char		*ft_strtrim(char const *s)
+{
+	char	*temp[2];
+	size_t	end_start[2];
+
+	if (s && ((end_start[0] = 0) == 0))
+		return (retemp1(temp, end_start, s));
+	return (NULL);
 }

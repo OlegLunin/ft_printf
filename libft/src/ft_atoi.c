@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olunin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 17:51:20 by opodolia          #+#    #+#             */
-/*   Updated: 2017/02/02 19:00:13 by opodolia         ###   ########.fr       */
+/*   Created: 2016/10/31 10:02:07 by olunin            #+#    #+#             */
+/*   Updated: 2016/12/06 15:38:35 by olunin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-int		ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
-	int		rt;
-	int		neg;
+	int rt;
+	int neg;
 
 	rt = 0;
 	neg = 1;
-	while (*str == ' ' || *str == '\t' || *str == '\f' || *str == '\r' ||
-			*str == '\n' || *str == '\v')
+	while (*str == '\t' || *str == '\v' || *str == '\r' || *str == '\f'
+			|| *str == ' ' || *str == '\n')
 		str++;
 	if (*str == '-')
 	{

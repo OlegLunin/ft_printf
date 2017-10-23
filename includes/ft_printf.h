@@ -8,7 +8,7 @@
 # include "../libft/includes/libft.h"
 
 /*
-**				== Regular font colors ==
+**							  == Regular font colors ==
 */
 
 # define DEF		"\033[0m"
@@ -22,7 +22,7 @@
 # define GREY		"\033[37m"
 
 /*
-**				== Bold font colors ==
+**							   == Bold font colors ==
 */
 
 # define B_DEF		"\033[0;39m"
@@ -36,7 +36,7 @@
 # define B_GREY		"\033[1;37m"
 
 /*
-**				== Background colors ==
+**							  == Background colors ==
 */
 
 # define DG_DEF		"\033[49m"
@@ -49,6 +49,10 @@
 # define BG_CYAN	"\033[46m"
 # define BG_GREY	"\033[47m"
 
+/*
+**									== Length ==
+*/
+
 typedef enum
 {
 	none,
@@ -58,8 +62,11 @@ typedef enum
 	ll,
 	j,
 	z,
-	L,
 }	t_length;
+
+/*
+**									 == Hash ==
+*/
 
 typedef enum
 {
@@ -68,8 +75,11 @@ typedef enum
 	o,
 	x,
 	X,
-	b,
 }	t_hash;
+
+/*
+**								 == Flags struct ==
+*/
 
 typedef struct	s_flags
 {
@@ -80,6 +90,10 @@ typedef struct	s_flags
 	int			space;
 }				t_flags;
 
+/*
+**							  == Parameters struct ==
+*/
+
 typedef struct	s_params
 {
 	t_flags		flags;
@@ -87,43 +101,54 @@ typedef struct	s_params
 	int			precision;
 	t_length	length;
 	char		specifier;
-	int			base;
-	int			sigfig;
-	int			exp_base;
-	char		exp_char;
-	int			exp_len;
 }				t_params;
 
+/*
+**									 == Main ==
+*/
+
 int				ft_printf(const char *format, ...);
+
+/*
+**									== Parser ==
+*/
+
 int				parse_params(int indx, const char *format, t_params *params,
 				va_list ap);
 int				parse_specifiers(va_list ap, t_params *params);
 void			parse_numb_specifiers(t_params *params, char specifier,
 				intmax_t numb);
 
+/*
+**								  == Parameters ==
+*/
 
-int				ft_flags(const char *format, t_mods *mods);
-int				ft_width(const char *format, t_mods *mods, va_list ap);
-int				ft_precision(const char *format, t_mods *mods, va_list ap);
-int				ft_length(const char *format, t_mods *mods);
-int				ft_qualifier(char c, t_mods *mods);
+int				flags(const char *format, t_params *params);
+int				width(const char *format, t_params *params, va_list ap);
+int				precision(const char *format, t_params *params, va_list ap);
+int				length(const char *format, t_params *params);
 
-int				no_type(t_mods *mods);
-int				number(va_list ap, t_mods *mods);
-int				symbol(va_list ap, t_mods *mods);
-int				string(va_list ap, t_mods *mods);
+/*
+**								 == Types of data ==
+*/
 
-int				ft_size(char *str, t_mods *mods);
-int				ft_is_mb(char *s);
-char			*ft_convert_len(va_list ap, t_mods *mods, char c);
-char			*ft_convert_ulen(va_list ap, t_mods *mods, char c);
-void			ft_push_right(t_mods *mods, char **mas, int size, char *str);
-void			ft_push_left(t_mods *mods, char **mas, int size, char *str);
-char			*ft_ftoa_handler(long double n, t_mods *mods, char c);
-long double		ft_get_mantissa(long double n, int base);
-int				ft_put_sign(t_mods *mods, char **mas, int i, char *str);
-int				ft_put_content(t_mods *mods, char **mas, int i, char *str);
-char			*ft_unprint(char *s, int i);
-char			*ft_quote_mark(char *str);
+int				number(va_list ap, t_params *params);
+int				symbol(va_list ap, t_params *params);
+int				string(va_list ap, t_params *params);
+int				no_specifier(t_params *params);
+
+/*
+**								  == Positioning ==
+*/
+
+void			push_left(t_params *params, char **line, int size, char *str);
+void			push_right(t_params *params, char **line, int size, char *str);
+
+/*
+**								 	 == Else ==
+*/
+
+int				get_size(char *str, t_params *params);
+int				is_multibyte(char *str);
 
 #endif
